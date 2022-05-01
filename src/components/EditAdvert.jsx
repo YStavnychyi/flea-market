@@ -6,8 +6,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
 const schema = yup.object().shape({
-    seller: yup.string().required().max(15),
-    sellerPhone: yup.string().phone("IN").required(),
+    /*seller: yup.string().required().max(15),
+    sellerPhone: yup.string().phone("IN").required(),*/
     title: yup.string().required().max(100),
     price: yup.number().required().min(0),
     description: yup.string().required().max(250),
@@ -37,8 +37,8 @@ const EditAdvert = () => {
     },[])
 
     const initialValues = {
-        seller: data.seller,
-        sellerPhone: data.sellerPhone,
+        /*seller: data.seller,
+        sellerPhone: data.sellerPhone,*/
         title: data.title,
         price: data.price,
         description: data.description,
@@ -73,37 +73,6 @@ const EditAdvert = () => {
                   }) => (
                     <Form noValidate onSubmit={handleSubmit}>
                         {/*{JSON.stringify(values,undefined,2)}*/}
-                        <Row className="mb-3">
-                            <Form.Group as={Col} md="2">
-                                <Form.Label>Seller</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    name='seller'
-                                    placeholder='Seller name'
-                                    onChange={handleChange}
-                                    value={values.seller}
-                                    isInvalid={!!errors.seller}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.seller}
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                            <Form.Group as={Col} md="4">
-                                <Form.Label>Phone</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    inputMode='tel'
-                                    name='sellerPhone'
-                                    placeholder='Seller phone'
-                                    onChange={handleChange}
-                                    value={values.sellerPhone}
-                                    isInvalid={!!errors.sellerPhone}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.sellerPhone}
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                        </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="2">
                                 <Form.Label>Price</Form.Label>

@@ -43,7 +43,7 @@ function App() {
                                     <Nav.Link>Add Element</Nav.Link>
                                 </LinkContainer>
                                 <NavDropdown title="My account">
-                                    <NavDropdown.Item disabled onChange>{`${data.firstName} ${data.lastName}`}</NavDropdown.Item>
+                                    <NavDropdown.Item disabled>{`${data.firstName} ${data.lastName}`}</NavDropdown.Item>
                                     <LinkContainer to="/editUserInfo">
                                         <NavDropdown.Item>Edit info</NavDropdown.Item>
                                     </LinkContainer>
@@ -59,6 +59,7 @@ function App() {
                             <Route path={':id/edit'} element={<EditAdvert/>}/>
                             <Route path={':id'} element={<Advert/>}/>
                         </Route>
+                        {/*Kebab case*/}
                         <Route path="/addElement" element={<AddElement/>}/>
                         <Route path="/editUserInfo" element={<EditUserInfo/>}/>
                         <Route path="/error404" element={<Error404/>}/>

@@ -11,9 +11,15 @@ const schema = yup.object().shape({
     phone: yup.string().phone("IN").required(),
 })
 
+const defaultValues = {
+    firstName: '',
+    lastName: '',
+    phone: '',
+}
+
 const EditUserInfo = () => {
 
-    const [dataUser, setDataUser] = useState([])
+    const [dataUser, setDataUser] = useState(null)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,12 +29,6 @@ const EditUserInfo = () => {
         fetchUser()
     },[])
 
-    const initialValues = {
-        firstName: dataUser.firstName,
-        lastName: dataUser.lastName,
-        phone: dataUser.phone,
-    }
-
     const handleFormikSubmit = async (values) =>{
         const request = {
             ...values
@@ -37,6 +37,8 @@ const EditUserInfo = () => {
         setDataUser(response.data)
         window.location.reload()
     }
+
+    const initialValues = {...defaultValues, ...dataUser}
 
     return (
         <div>
