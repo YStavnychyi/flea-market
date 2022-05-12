@@ -16,6 +16,8 @@ import FavouritesList from "./components/FavouritesList";
 
 function App() {
 
+    const a = 6
+
     return (
         <div className="App">
             <BrowserRouter>
