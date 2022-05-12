@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import {useContext, useEffect, useState} from "react";
 import {getRandomInteger} from "../utills/getRandomInteger";
 import {UserContext} from "./context/Context";
+import {useFetchData} from "../hooks/useFetchData";
 
 const schema = yup.object().shape({
     seller: yup.string().required().max(15),
@@ -30,15 +31,8 @@ const AddElement = () => {
 
     const [user] = useContext(UserContext)
     const navigate = useNavigate()
-    const [categories, setCategories] = useState([])
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const response = await axios.get(`/categories`)
-            setCategories(response.data)
-        }
-        fetchCategories()
-    }, [])
+    const [categories] = useFetchData(`/categories`,[])
 
     const handleFormikSubmit = async (values) => {
         const request = {

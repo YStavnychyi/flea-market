@@ -4,6 +4,7 @@ import {Formik} from "formik";
 import * as yup from "yup";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import {useFetchData} from "../hooks/useFetchData";
 
 const schema = yup.object().shape({
     /*seller: yup.string().required().max(15),
@@ -17,35 +18,21 @@ const EditAdvert = () => {
 
     const {id} = useParams()
     const navigate = useNavigate()
-    const [data,setData] = useState([])
-    const [categories, setCategories] = useState([])
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const response = await axios.get(`/categories`)
-            setCategories(response.data)
-        }
-        fetchCategories()
-    }, [])
+    const [categories] = useFetchData(`/categories`,[])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get(`/adverts/${id}`)
-            setData(response.data)
-        }
-        fetchData()
-    },[])
+    const [advert] = useFetchData(`/adverts/${id}`, {})
 
     const initialValues = {
-        /*seller: data.seller,
-        sellerPhone: data.sellerPhone,*/
-        title: data.title,
-        price: data.price,
-        description: data.description,
-        canNegotiate: data.canNegotiate,
+        /*seller: advert.seller,
+        sellerPhone: advert.sellerPhone,*/
+        title: advert.title,
+        price: advert.price,
+        description: advert.description,
+        canNegotiate: advert.canNegotiate,
         categoryId: '',
-        createdOn: data.createdOn,
-        image: data.image
+        createdOn: advert.createdOn,
+        image: advert.image
     }
 
     const handleFormikSubmit = async (values) => {
