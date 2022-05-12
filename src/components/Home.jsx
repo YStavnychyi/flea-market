@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import axios from "axios";
 import {Button, Form, FormControl, InputGroup, ListGroup, Table} from "react-bootstrap";
+import {HandThumbsUp} from 'react-bootstrap-icons'
 import {LinkContainer} from 'react-router-bootstrap'
 import ReactPaginate from "react-paginate";
 import {format, parseISO} from "date-fns";
@@ -15,6 +16,7 @@ const Home = () => {
     const [data, setData] = useState([])
     const [value, setValue] = useState("")
     const [totalCount, setTotalCount] = useState(0)
+    const [favourites, setFavourites] = useState([])
 
     /*const numberValue = 5
     const stringValue = 'XD'
@@ -78,6 +80,10 @@ const Home = () => {
         return dataFormServer
     }
 
+    const addFavourites = (advert) => {
+        setFavourites([...favourites,advert])
+    }
+
     return (
         <div>
             <p className="my-3 text-center" style={fsParagraph}>
@@ -118,8 +124,10 @@ const Home = () => {
                                 <tr>
                                     <td valign='bottom' className="border-0">
                                         {format(parseISO(advert.createdOn), 'yyyy-MM-dd')}
-                                        {/*{formatDuration(advert.createdOn, "h,m,s")}*/}
                                     </td>
+                                    {/*<td valign='bottom' className='border-0 text-end'>
+                                        <HandThumbsUp handleFavouritesClick={addFavourites}/>
+                                    </td>*/}
                                 </tr>
                                 </tbody>
                             </Table>

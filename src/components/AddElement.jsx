@@ -4,32 +4,33 @@ import * as yup from 'yup';
 import "yup-phone";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getRandomInteger} from "../utills/getRandomInteger";
+import {UserContext} from "./context/Context";
 
 const schema = yup.object().shape({
-    //seller: yup.string().required().max(15),
-    //sellerPhone: yup.string().phone("IN").required(),
+    seller: yup.string().required().max(15),
+    sellerPhone: yup.string().phone("IN").required(),
     title: yup.string().required().max(100),
     price: yup.number().required().min(0),
     description: yup.string().required().max(250),
 });
 
+const defaultValues = {
+    seller: '',
+    sellerPhone: '',
+    title: '',
+    price: '',
+    description: '',
+    canNegotiate: false,
+    categoryId: ''
+}
+
 const AddElement = () => {
 
+    const [user] = useContext(UserContext)
     const navigate = useNavigate()
-    const [dataUser, setDataUser] = useState([])
     const [categories, setCategories] = useState([])
-
-    const initialValues = {
-        /*seller: `${dataUser.firstName} ${dataUser.lastName}`,
-        sellerPhone: dataUser.phone,*/
-        title: '',
-        price: '',
-        description: '',
-        canNegotiate: false,
-        categoryId: ''
-    }
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -38,14 +39,6 @@ const AddElement = () => {
         }
         fetchCategories()
     }, [])
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await axios.get(`/user`)
-            setDataUser(response.data)
-        }
-        fetchUser()
-    },[])
 
     const handleFormikSubmit = async (values) => {
         const request = {
@@ -59,6 +52,12 @@ const AddElement = () => {
         }
         const response = await axios.post(`/adverts`, request)
         navigate(`/advert/${response.data.id}`)
+    }
+
+    const initialValues = {
+        ...defaultValues,
+        seller: user ? `${user.firstName} ${user.lastName}` : "",
+        sellerPhone: user ? user.phone : ""
     }
 
     return (
@@ -89,7 +88,7 @@ const AddElement = () => {
                                     name='seller'
                                     placeholder='Seller name'
                                     onChange={handleChange}
-                                    value={`${dataUser.firstName} ${dataUser.lastName}`}
+                                    value={values.seller}
                                 />
                             </Form.Group>
                             <Form.Group as={Col} md="4">
@@ -101,7 +100,7 @@ const AddElement = () => {
                                     name='sellerPhone'
                                     placeholder='Seller phone'
                                     onChange={handleChange}
-                                    value={dataUser.phone}
+                                    value={values.sellerPhone}
                                 />
                             </Form.Group>
                         </Row>

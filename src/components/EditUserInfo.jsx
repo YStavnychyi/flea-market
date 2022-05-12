@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Formik} from "formik";
 import axios from "axios";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import * as yup from "yup";
-import {useNavigate} from "react-router-dom";
+import {UserContext} from "./context/Context";
 
 const schema = yup.object().shape({
     firstName: yup.string().required().max(15),
@@ -19,26 +19,14 @@ const defaultValues = {
 
 const EditUserInfo = () => {
 
-    const [dataUser, setDataUser] = useState(null)
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await axios.get(`/user`)
-            setDataUser(response.data)
-        }
-        fetchUser()
-    },[])
+    const [user,fetchData] = useContext(UserContext)
 
     const handleFormikSubmit = async (values) =>{
-        const request = {
-            ...values
-        }
-        const response = await axios.put(`/user`, request)
-        setDataUser(response.data)
-        window.location.reload()
+        await axios.put(`/user`, values)
+        await fetchData()
     }
 
-    const initialValues = {...defaultValues, ...dataUser}
+    const initialValues = {...defaultValues, ...user}
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button, Col, Modal, Row} from "react-bootstrap";
 import {ArrowLeft, PersonCircle} from "react-bootstrap-icons";
 import {format, parseISO} from "date-fns";
 import {cursorPointer} from "../style/cursorPointer"
@@ -13,6 +13,7 @@ const Advert = () => {
     const [categories, setCategories] = useState([])
     const [dataUser, setDataUser] = useState([])
     const [buttonText, setButtonText] = useState('Phone number')
+    let [showModal, setShowModal] = useState(false)
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -41,16 +42,29 @@ const Advert = () => {
         fetchUser()
     },[])
 
+    const handleShow = () => {
+        setShowModal(true)
+    }
+
+    const handleClose = () => {
+        setShowModal(false)
+    }
+
+    const handleSave = async () =>{
+        const response = await axios.delete(`/adverts/${id}`)
+        setData(response.data)
+        setShowModal(false)
+        navigate(`/`)
+    }
     const handleClickDelete = async () => {
-        if (window.confirm("Are you sure wanted to delete ?")) {
+        /*if (window.confirm("Are you sure wanted to delete ?")) {
             const response = await axios.delete(`/adverts/${id}`)
             setData(response.data)
             navigate(`/`)
-        }
+        }*/
     }
 
     const handleClickPhone = () => {
-        /*setButtonText(data.sellerPhone)*/
         setButtonText(dataUser.phone)
     }
 
@@ -88,7 +102,17 @@ const Advert = () => {
                     <div className='p-4 text-center'>
                         <Button className='mx-4' variant="primary"
                                 onClick={() => navigate(`/advert/${id}/edit`)}>Edit</Button>
-                        <Button variant="danger" onClick={handleClickDelete}>Delete</Button>
+                        <Button variant="danger" onClick={handleShow}>Delete</Button>
+                        <Modal show={showModal} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Are you sure wanted to delete ?</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Footer>
+                                <Button onClick={handleSave}>Yes</Button>
+                                <Button variant='danger' onClick={handleClose}>No</Button>
+                            </Modal.Footer>
+                        </Modal>
+
                     </div>
                 </Col>
             </Row>
