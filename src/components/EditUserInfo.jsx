@@ -4,6 +4,7 @@ import axios from "axios";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import * as yup from "yup";
 import {UserContext} from "./context/Context";
+import TextField from "./TextField";
 
 const schema = yup.object().shape({
     firstName: yup.string().required().max(15),
@@ -46,18 +47,7 @@ const EditUserInfo = () => {
                     <Form noValidate onSubmit={handleSubmit}>
                         <Row className='mb-3'>
                             <Form.Group as={Col} md="2">
-                                <Form.Label>First name</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    name='firstName'
-                                    placeholder='First name'
-                                    onChange={handleChange}
-                                    value={values.firstName}
-                                    isInvalid={!!errors.firstName}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.firstName}
-                                </Form.Control.Feedback>
+                                <TextField name='firstName' label='First Name'/>
                             </Form.Group>
                             <Form.Group as={Col} md="2">
                                 <Form.Label>Last name</Form.Label>
