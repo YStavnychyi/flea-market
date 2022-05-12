@@ -16,7 +16,7 @@ import FavouritesList from "./components/FavouritesList";
 
 function App() {
 
-    const a = 6
+    const a = 8
 
     return (
         <div className="App">
