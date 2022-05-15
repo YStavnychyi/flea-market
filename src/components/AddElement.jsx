@@ -7,10 +7,10 @@ import {useNavigate} from 'react-router-dom'
 import {useContext} from "react";
 import {getRandomInteger} from "../utills/getRandomInteger";
 import {UserContext} from "./context/Context";
-import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
 import NumberField from "./NumberField";
 import CheckboxField from "./CheckboxField";
+import SelectField from "./SelectField";
 
 const schema = yup.object().shape({
     seller: yup.string().required().max(15),
@@ -34,8 +34,6 @@ const AddElement = () => {
 
     const [user] = useContext(UserContext)
     const navigate = useNavigate()
-
-    const [categories] = useFetchData(`/categories`, [])
 
     const handleFormikSubmit = async (values) => {
         const request = {
@@ -69,10 +67,7 @@ const AddElement = () => {
                 enableReinitialize
             >
                 {({
-                      handleSubmit,
-                      handleChange,
-                      values,
-                      errors,
+                      handleSubmit
                   }) => (
                     <Form noValidate onSubmit={handleSubmit}>
                         {/*{JSON.stringify(values,undefined,2)}*/}
@@ -110,27 +105,15 @@ const AddElement = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <CheckboxField name='canNegotiate' label='To Negotiate'/>
+                                <CheckboxField
+                                    name='canNegotiate'
+                                    label='To Negotiate'
+                                />
                             </Form.Group>
                             <Form.Group as={Col} md="4">
-                                <Form.Select
-                                    name="categoryId"
-                                    onChange={handleChange}
-                                    value={values.categoryId}
-                                >
-                                    <option>Select a category</option>
-                                    {categories.map((category) => {
-                                        return (
-                                            <option
-                                                key={category.id}
-                                                value={category.id}
-                                            >
-                                                {category.title}
-                                            </option>
-                                        )
-                                    })
-                                    }
-                                </Form.Select>
+                                <SelectField
+                                    name='categoryId'
+                                />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">

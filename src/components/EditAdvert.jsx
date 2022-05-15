@@ -8,6 +8,7 @@ import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
 import NumberField from "./NumberField";
 import CheckboxField from "./CheckboxField";
+import SelectField from "./SelectField";
 
 const schema = yup.object().shape({
     title: yup.string().required().max(100),
@@ -21,8 +22,6 @@ const EditAdvert = () => {
 
     const {id} = useParams()
     const navigate = useNavigate()
-
-    const [categories] = useFetchData(`/categories`,[])
 
     const [advert] = useFetchData(`/adverts/${id}`, {})
 
@@ -54,10 +53,7 @@ const EditAdvert = () => {
                 enableReinitialize
             >
                 {({
-                      handleSubmit,
-                      handleChange,
-                      values,
-                      errors,
+                      handleSubmit
                   }) => (
                     <Form noValidate onSubmit={handleSubmit}>
                         {/*{JSON.stringify(values,undefined,2)}*/}
@@ -78,27 +74,15 @@ const EditAdvert = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="2">
-                                <CheckboxField name='canNegotiate' label='To negotiate'/>
+                                <CheckboxField
+                                    name='canNegotiate'
+                                    label='To negotiate'
+                                />
                             </Form.Group>
                             <Form.Group as={Col} md="4">
-                                <Form.Select
-                                    name="categoryId"
-                                    onChange={handleChange}
-                                    value={values.categoryId}
-                                >
-                                    <option>Select a category</option>
-                                    {categories.map((category) => {
-                                        return (
-                                            <option
-                                                key={category.id}
-                                                value={category.id}
-                                            >
-                                                {category.title}
-                                            </option>
-                                        )
-                                    })
-                                    }
-                                </Form.Select>
+                                <SelectField
+                                    name='categoryId'
+                                />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
