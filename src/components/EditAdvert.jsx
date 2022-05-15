@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
+import NumberField from "./NumberField";
 
 const schema = yup.object().shape({
     title: yup.string().required().max(100),
@@ -61,19 +62,11 @@ const EditAdvert = () => {
                         {/*{JSON.stringify(values,undefined,2)}*/}
                         <Row className="mb-3">
                             <Form.Group as={Col} md="2">
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    inputMode='decimal'
-                                    placeholder="Price"
-                                    name="price"
-                                    value={values.price}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.price}
+                                <NumberField
+                                    name='price'
+                                    label='Price'
+                                    placeholder='Price'
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.price}
-                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
                                 <TextField

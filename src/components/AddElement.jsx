@@ -9,6 +9,7 @@ import {getRandomInteger} from "../utills/getRandomInteger";
 import {UserContext} from "./context/Context";
 import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
+import NumberField from "./NumberField";
 
 const schema = yup.object().shape({
     seller: yup.string().required().max(15),
@@ -92,19 +93,11 @@ const AddElement = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    inputMode='decimal'
-                                    placeholder="Price"
-                                    name="price"
-                                    value={values.price}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.price}
+                                <NumberField
+                                    name='price'
+                                    label='Price'
+                                    placeholder='Price'
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.price}
-                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
                                 <TextField
