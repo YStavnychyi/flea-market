@@ -1,13 +1,14 @@
 import {Formik} from 'formik'
-import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import * as yup from 'yup';
 import "yup-phone";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {getRandomInteger} from "../utills/getRandomInteger";
 import {UserContext} from "./context/Context";
 import {useFetchData} from "../hooks/useFetchData";
+import TextField from "./TextField";
 
 const schema = yup.object().shape({
     seller: yup.string().required().max(15),
@@ -32,7 +33,7 @@ const AddElement = () => {
     const [user] = useContext(UserContext)
     const navigate = useNavigate()
 
-    const [categories] = useFetchData(`/categories`,[])
+    const [categories] = useFetchData(`/categories`, [])
 
     const handleFormikSubmit = async (values) => {
         const request = {
@@ -75,26 +76,17 @@ const AddElement = () => {
                         {/*{JSON.stringify(values,undefined,2)}*/}
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <Form.Label>Seller</Form.Label>
-                                <Form.Control
-                                    disabled
-                                    type='text'
+                                <TextField
                                     name='seller'
-                                    placeholder='Seller name'
-                                    onChange={handleChange}
-                                    value={values.seller}
+                                    label='Seller'
+                                    disabled
                                 />
                             </Form.Group>
                             <Form.Group as={Col} md="4">
-                                <Form.Label>Phone</Form.Label>
-                                <Form.Control
-                                    disabled
-                                    type='text'
-                                    inputMode='tel'
+                                <TextField
                                     name='sellerPhone'
-                                    placeholder='Seller phone'
-                                    onChange={handleChange}
-                                    value={values.sellerPhone}
+                                    label='Phone'
+                                    disabled
                                 />
                             </Form.Group>
                         </Row>
@@ -115,20 +107,11 @@ const AddElement = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
-                                <Form.Label>Title</Form.Label>
-                                <InputGroup hasValidation>
-                                    <Form.Control
-                                        type='text'
-                                        name='title'
-                                        placeholder='Title'
-                                        onChange={handleChange}
-                                        value={values.title}
-                                        isInvalid={!!errors.title}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.title}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
+                                <TextField
+                                    name='title'
+                                    label='Title'
+                                    placeholder='Title'
+                                />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -164,20 +147,12 @@ const AddElement = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={3}
-                                    type="text"
-                                    placeholder="Description"
-                                    name="description"
-                                    value={values.description}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.description}
+                                <TextField
+                                    name='description'
+                                    label='Description'
+                                    as='textarea' rows={3}
+                                    placeholder={'Descriptions'}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.description}
-                                </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 

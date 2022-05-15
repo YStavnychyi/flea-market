@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
+import React from 'react';
+import {Button, Col, Form, Row} from "react-bootstrap";
 import {Formik} from "formik";
 import * as yup from "yup";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {useFetchData} from "../hooks/useFetchData";
+import TextField from "./TextField";
 
 const schema = yup.object().shape({
-    /*seller: yup.string().required().max(15),
-    sellerPhone: yup.string().phone("IN").required(),*/
     title: yup.string().required().max(100),
     price: yup.number().required().min(0),
     description: yup.string().required().max(250),
 });
 
 const EditAdvert = () => {
+
+    /*Change initialValues and add useContext*/
 
     const {id} = useParams()
     const navigate = useNavigate()
@@ -24,8 +25,6 @@ const EditAdvert = () => {
     const [advert] = useFetchData(`/adverts/${id}`, {})
 
     const initialValues = {
-        /*seller: advert.seller,
-        sellerPhone: advert.sellerPhone,*/
         title: advert.title,
         price: advert.price,
         description: advert.description,
@@ -77,20 +76,10 @@ const EditAdvert = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
-                                <Form.Label>Title</Form.Label>
-                                <InputGroup hasValidation>
-                                    <Form.Control
-                                        type='text'
-                                        name='title'
-                                        placeholder='Title'
-                                        onChange={handleChange}
-                                        value={values.title}
-                                        isInvalid={!!errors.title}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.title}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
+                                <TextField
+                                    name='title'
+                                    label='Title'
+                                    placeholder='Title'/>
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -126,20 +115,12 @@ const EditAdvert = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={3}
-                                    type="text"
-                                    placeholder="Description"
-                                    name="description"
-                                    value={values.description}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.description}
+                                <TextField
+                                    name='description'
+                                    label='Description'
+                                    as='textarea' rows={3}
+                                    placeholder={'Descriptions'}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.description}
-                                </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
