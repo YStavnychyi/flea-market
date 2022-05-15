@@ -7,6 +7,7 @@ import axios from "axios";
 import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
 import NumberField from "./NumberField";
+import CheckboxField from "./CheckboxField";
 
 const schema = yup.object().shape({
     title: yup.string().required().max(100),
@@ -77,13 +78,7 @@ const EditAdvert = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="2">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="To Negotiate"
-                                    name="canNegotiate"
-                                    checked={values.canNegotiate}
-                                    onChange={handleChange}
-                                />
+                                <CheckboxField name='canNegotiate' label='To negotiate'/>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
                                 <Form.Select

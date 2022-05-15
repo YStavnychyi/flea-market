@@ -10,6 +10,7 @@ import {UserContext} from "./context/Context";
 import {useFetchData} from "../hooks/useFetchData";
 import TextField from "./TextField";
 import NumberField from "./NumberField";
+import CheckboxField from "./CheckboxField";
 
 const schema = yup.object().shape({
     seller: yup.string().required().max(15),
@@ -109,13 +110,7 @@ const AddElement = () => {
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} md="3">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="To Negotiate"
-                                    name="canNegotiate"
-                                    checked={values.canNegotiate}
-                                    onChange={handleChange}
-                                />
+                                <CheckboxField name='canNegotiate' label='To Negotiate'/>
                             </Form.Group>
                             <Form.Group as={Col} md="4">
                                 <Form.Select
