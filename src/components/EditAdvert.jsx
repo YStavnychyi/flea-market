@@ -28,7 +28,7 @@ const defaultValues = {
 
 const EditAdvert = () => {
 
-    /*Change initialValues and add useContext*/
+    /*add useContext*/
 
     const {id} = useParams()
     const navigate = useNavigate()
