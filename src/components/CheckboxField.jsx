@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Form} from "react-bootstrap";
 import {useField} from "formik";
 
-const CheckboxField = ({type='checkbox', name, label, checked}) => {
+const CheckboxField = ({type='checkbox', name, label}) => {
 
     const [field] = useField(name);
 
@@ -13,7 +13,7 @@ const CheckboxField = ({type='checkbox', name, label, checked}) => {
                 type={type}
                 label={label}
                 name={name}
-                checked={checked}
+                checked={field.value}
                 onChange={field.onChange}
             />
         </div>
@@ -24,7 +24,6 @@ CheckboxField.propTypes = {
     type: PropTypes.string,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
-    checked: PropTypes.bool
 };
 
 export default CheckboxField;
