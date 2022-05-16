@@ -16,6 +16,16 @@ const schema = yup.object().shape({
     description: yup.string().required().max(250),
 });
 
+const defaultValues = {
+    title: '',
+    price: '',
+    description: '',
+    canNegotiate: '',
+    categoryId: '',
+    createdOn: '',
+    image: ''
+}
+
 const EditAdvert = () => {
 
     /*Change initialValues and add useContext*/
@@ -25,21 +35,10 @@ const EditAdvert = () => {
 
     const [advert] = useFetchData(`/adverts/${id}`, {})
 
-    const initialValues = {
-        title: advert.title,
-        price: advert.price,
-        description: advert.description,
-        canNegotiate: advert.canNegotiate,
-        categoryId: '',
-        createdOn: advert.createdOn,
-        image: advert.image
-    }
+    const initialValues = {...defaultValues, ...advert}
 
     const handleFormikSubmit = async (values) => {
-        const request = {
-            ...values
-        }
-        const response = await axios.put(`/adverts/${id}`, request)
+        const response = await axios.put(`/adverts/${id}`, values)
         navigate(`/advert/${response.data.id}`)
     }
 
@@ -53,7 +52,7 @@ const EditAdvert = () => {
                 enableReinitialize
             >
                 {({
-                      handleSubmit
+                      handleSubmit,values,handleChange
                   }) => (
                     <Form noValidate onSubmit={handleSubmit}>
                         {/*{JSON.stringify(values,undefined,2)}*/}
