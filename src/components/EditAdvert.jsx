@@ -52,7 +52,7 @@ const EditAdvert = () => {
                 enableReinitialize
             >
                 {({
-                      handleSubmit,values,handleChange
+                      handleSubmit
                   }) => (
                     <Form noValidate onSubmit={handleSubmit}>
                         {/*{JSON.stringify(values,undefined,2)}*/}
