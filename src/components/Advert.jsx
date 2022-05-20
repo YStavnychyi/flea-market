@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {Button, Col, Modal, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import {ArrowLeft, PersonCircle} from "react-bootstrap-icons";
 import {format, parseISO} from "date-fns";
 import {cursorPointer} from "../style/cursorPointer"
 import {fsSmall} from "../style/fsSmall";
 import {fsPrice} from "../style/fsPrice";
+import {useModal} from "../hooks/useModal";
+import ModalWindow from "./ModalWindow";
 
 const Advert = () => {
     const [data, setData] = useState([])
     const [categories, setCategories] = useState([])
     const [dataUser, setDataUser] = useState([])
     const [buttonText, setButtonText] = useState('Phone number')
-    let [showModal, setShowModal] = useState(false)
+    const {handleShow, handleClose, handleSave, visible} = useModal()
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -40,29 +42,7 @@ const Advert = () => {
             setDataUser(response.data)
         }
         fetchUser()
-    },[])
-
-    const handleShow = () => {
-        setShowModal(true)
-    }
-
-    const handleClose = () => {
-        setShowModal(false)
-    }
-
-    const handleSave = async () =>{
-        const response = await axios.delete(`/adverts/${id}`)
-        setData(response.data)
-        setShowModal(false)
-        navigate(`/`)
-    }
-    const handleClickDelete = async () => {
-        /*if (window.confirm("Are you sure wanted to delete ?")) {
-            const response = await axios.delete(`/adverts/${id}`)
-            setData(response.data)
-            navigate(`/`)
-        }*/
-    }
+    }, [])
 
     const handleClickPhone = () => {
         setButtonText(dataUser.phone)
@@ -93,7 +73,6 @@ const Advert = () => {
                                 <PersonCircle size={70}/>
                             </Col>
                             <Col>
-                                {/*<h4>{data.seller}</h4>*/}
                                 <h4>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
                                 <Button variant="success" onClick={handleClickPhone}>{buttonText}</Button>
                             </Col>
@@ -103,16 +82,10 @@ const Advert = () => {
                         <Button className='mx-4' variant="primary"
                                 onClick={() => navigate(`/advert/${id}/edit`)}>Edit</Button>
                         <Button variant="danger" onClick={handleShow}>Delete</Button>
-                        <Modal show={showModal} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Are you sure wanted to delete ?</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Footer>
-                                <Button onClick={handleSave}>Yes</Button>
-                                <Button variant='danger' onClick={handleClose}>No</Button>
-                            </Modal.Footer>
-                        </Modal>
-
+                        {
+                            visible ? <ModalWindow handleShow={handleShow} handleClose={handleClose}
+                                                   handleSave={handleSave}/> : null
+                        }
                     </div>
                 </Col>
             </Row>
