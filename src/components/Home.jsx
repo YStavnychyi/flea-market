@@ -16,7 +16,6 @@ const Home = () => {
     const [data, setData] = useState([])
     const [value, setValue] = useState("")
     const [totalCount, setTotalCount] = useState(0)
-    const [favourites, setFavourites] = useState([])
 
     /*const numberValue = 5
     const stringValue = 'XD'
@@ -80,8 +79,8 @@ const Home = () => {
         return dataFormServer
     }
 
-    const addFavourites = (advert) => {
-        setFavourites([...favourites,advert])
+    const addFavourites = () => {
+        alert("1")
     }
 
     return (
@@ -104,35 +103,37 @@ const Home = () => {
             </Form>
             <ListGroup className="mt-3">
                 {data.map((advert) => (
-                    <LinkContainer to={`/advert/${advert.id}`} key={advert.id}>
-                        <ListGroup.Item action className='mb-2'>
-                            <Table size=''>
-                                <tbody>
-                                <tr>
-                                    <td rowSpan={2} className="border-0" style={styleWidth}>
-                                        <img src={advert.image} style={styleWidth}/>
-                                    </td>
+                    <ListGroup.Item action className='mb-2' key={advert.id}>
+                        <Table size=''>
+                            <tbody>
+                            <tr>
+                                <td rowSpan={2} className="border-0" style={styleWidth}>
+                                    <img src={advert.image} style={styleWidth}/>
+                                </td>
+                                <LinkContainer to={`/advert/${advert.id}`}>
                                     <td valign='top' className="border-0">
                                         {advert.title}
                                     </td>
-                                    <td className="border-0 text-end">
-                                        {advert.price} zł.
-                                        <p className='text-secondary'
-                                           style={fsSmall}>{advert.canNegotiate ? "To negotiate" : ""}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign='bottom' className="border-0">
-                                        {format(parseISO(advert.createdOn), 'yyyy-MM-dd')}
-                                    </td>
-                                    {/*<td valign='bottom' className='border-0 text-end'>
-                                        <HandThumbsUp handleFavouritesClick={addFavourites}/>
-                                    </td>*/}
-                                </tr>
-                                </tbody>
-                            </Table>
-                        </ListGroup.Item>
-                    </LinkContainer>
+                                </LinkContainer>
+                                <td className="border-0 text-end">
+                                    {advert.price} zł.
+                                    <p className='text-secondary'
+                                       style={fsSmall}>{advert.canNegotiate ? "To negotiate" : ""}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign='bottom' className="border-0">
+                                    {format(parseISO(advert.createdOn), 'yyyy-MM-dd')}
+                                </td>
+                                <td valign='bottom' className='border-0 text-end'>
+                                    <Button variant='none' onClick={addFavourites}>
+                                        <HandThumbsUp/>
+                                    </Button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </Table>
+                    </ListGroup.Item>
                 ))}
             </ListGroup>
             <ReactPaginate pageCount={Math.ceil(totalCount / pageLimit)}
