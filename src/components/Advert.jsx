@@ -9,6 +9,8 @@ import {fsSmall} from "../style/fsSmall";
 import {fsPrice} from "../style/fsPrice";
 import {useModal} from "../hooks/useModal";
 import ModalWindow from "./ModalWindow";
+import ModalOffer from "./ModalOffer";
+import {useOffer} from "../hooks/useOffer";
 
 const Advert = () => {
     const [data, setData] = useState([])
@@ -16,6 +18,7 @@ const Advert = () => {
     const [dataUser, setDataUser] = useState([])
     const [buttonText, setButtonText] = useState('Phone number')
     const {handleShow, handleClose, handleSave, visible} = useModal()
+    const {offerShow, offerClose, viewable} = useOffer()
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -44,12 +47,20 @@ const Advert = () => {
         fetchUser()
     }, [])
 
+    useEffect(() => {
+        const timeId = setTimeout(() => offerShow(), 3000)
+        return () => {
+            clearTimeout(timeId)
+        }
+    }, [])
+
     const handleClickPhone = () => {
         setButtonText(dataUser.phone)
     }
 
     return (
         <div>
+            {viewable && <ModalOffer handleShow={offerShow} handleClose={offerClose} title='Kup Teraz!!'/>}
             <div className='d-flex my-5'>
                 <span onClick={() => navigate('/')} style={cursorPointer}>
                     <ArrowLeft className='me-1'/>
