@@ -19,7 +19,6 @@ const FavouritesList = () => {
     },[])
 
     /*empty state, loading state, error state, fulfilled state*/
-    /*popup 30sek "kup teraz!"*/
 
     return (
         <div>

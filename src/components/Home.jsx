@@ -16,6 +16,7 @@ const Home = () => {
     const [data, setData] = useState([])
     const [value, setValue] = useState("")
     const [totalCount, setTotalCount] = useState(0)
+    const [favourites, setFavourites] = useState([])
 
     /*const numberValue = 5
     const stringValue = 'XD'
@@ -79,10 +80,6 @@ const Home = () => {
         return dataFormServer
     }
 
-    const addFavourites = () => {
-        alert("1")
-    }
-
     return (
         <div>
             <p className="my-3 text-center" style={fsParagraph}>
@@ -126,7 +123,8 @@ const Home = () => {
                                     {format(parseISO(advert.createdOn), 'yyyy-MM-dd')}
                                 </td>
                                 <td valign='bottom' className='border-0 text-end'>
-                                    <Button variant='none' onClick={addFavourites}>
+                                    <Button variant='none' onClick={() => setFavourites([...favourites, advert.id])}
+                                            style={{color: favourites.includes(advert.id) ? 'red' : ''}}>
                                         <HandThumbsUp/>
                                     </Button>
                                 </td>
