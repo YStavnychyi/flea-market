@@ -28,8 +28,6 @@ const defaultValues = {
 
 const EditAdvert = () => {
 
-    /*add useContext*/
-
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -45,6 +43,7 @@ const EditAdvert = () => {
     return (
         <div>
             <h1>Edit information</h1>
+
             <Formik
                 validationSchema={schema}
                 onSubmit={handleFormikSubmit}

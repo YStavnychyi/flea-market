@@ -6,7 +6,7 @@ import axios from "axios";
 import {useNavigate} from 'react-router-dom'
 import {useContext} from "react";
 import {getRandomInteger} from "../utills/getRandomInteger";
-import {UserContext} from "./context/Context";
+import {UserContext} from "./context/UserContext";
 import TextField from "./TextField";
 import NumberField from "./NumberField";
 import CheckboxField from "./CheckboxField";

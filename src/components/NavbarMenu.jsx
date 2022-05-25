@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
-import axios from "axios";
-import {UserContext} from "./context/Context";
+import {UserContext} from "./context/UserContext";
 
 const NavbarMenu = () => {
 

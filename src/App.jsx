@@ -10,14 +10,11 @@ import EditAdvert from "./components/EditAdvert";
 import React from "react";
 import EditUserInfo from "./components/EditUserInfo";
 import NavbarMenu from "./components/NavbarMenu";
-import {UserProvider} from "./components/context/Context";
+import {UserProvider} from "./components/context/UserContext";
 import FavouritesList from "./components/FavouritesList";
 
 
 function App() {
-
-    const a = 8
-    console.log(a)
 
     return (
         <div className="App">
@@ -28,8 +25,8 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/advert">
-                                <Route path={':id/edit'} element={<EditAdvert/>}/>
                                 <Route path={':id'} element={<Advert/>}/>
+                                <Route path={':id/edit'} element={<EditAdvert/>}/>
                             </Route>
                             {/*Kebab case*/}
                             <Route path="/addElement" element={<AddElement/>}/>

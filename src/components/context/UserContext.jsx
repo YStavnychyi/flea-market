@@ -16,6 +16,7 @@ export const UserProvider = (props) => {
         fetchData().then()
     },[fetchData])
 
+
     return (
         <UserContext.Provider value={[user,fetchData]}>
             {props.children}

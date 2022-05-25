@@ -3,7 +3,7 @@ import {Formik} from "formik";
 import axios from "axios";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import * as yup from "yup";
-import {UserContext} from "./context/Context";
+import {UserContext} from "./context/UserContext";
 import TextField from "./TextField";
 
 const schema = yup.object().shape({
