@@ -84,7 +84,8 @@ const Advert = () => {
                         <Button variant="danger" onClick={handleShow}>Delete</Button>
                         {
                             visible ? <ModalWindow handleShow={handleShow} handleClose={handleClose}
-                                                   handleSave={handleSave}/> : null
+                                                   handleSave={handleSave} title="Are you sure wanted to delete ?"
+                                                   btnYes='Yes' btnNo='No'/> : null
                         }
                     </div>
                 </Col>
