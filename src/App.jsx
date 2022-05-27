@@ -33,6 +33,7 @@ function App() {
                             <Route path="/editUserInfo" element={<EditUserInfo/>}/>
                             <Route path="/myFavouritesList" element={<FavouritesList/>}/>
                             <Route path="/error404" element={<Error404/>}/>
+                            <Route path="*" element={<Error404/>}/>
                         </Routes>
                     </Container>
                 </UserProvider>
